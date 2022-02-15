@@ -1,0 +1,52 @@
+﻿<Window x:Class="DataManagerPC.FileManager"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DataManagerPC"
+        mc:Ignorable="d"
+        xmlns:dd="urn:gong-wpf-dragdrop"
+        x:Name="FileWindow"
+        Title="FileManager" Height="500" Width="350">
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="0.15*"/>
+            <RowDefinition Height="0.1*"/>
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <ListView Grid.Column="0" ItemsSource="{Binding NewFiles}" SelectedItem="{Binding SelectedFile}"
+                 dd:DragDrop.IsDropTarget="True"
+                 dd:DragDrop.DropHandler="{Binding}"
+                 >
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=Name}">Name</GridViewColumn>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=Size}">Size</GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+            <ListView Grid.Column="1" ItemsSource="{Binding Files}" SelectedItem="{Binding SelectedFile}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=Name}">Name</GridViewColumn>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=Size}">Size</GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+        <TextBlock DataContext="{Binding Path=SelectedFile}" Grid.Row="1" Text="{Binding PATH}">
+            
+        </TextBlock>
+        <StackPanel Grid.Row="2">
+            <Button Command="{Binding Update}" Height="20">Update</Button>
+            <Button Command="{Binding Submit}" Height="20">Submit</Button>
+        </StackPanel>
+    </Grid>
+</Window>
